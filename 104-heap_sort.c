@@ -7,7 +7,9 @@
  */
 void swap(int *a, int *b)
 {
-    int temp = *a;
+    int temp;
+
+    temp = *a;
     *a = *b;
     *b = temp;
 }
@@ -20,9 +22,11 @@ void swap(int *a, int *b)
  */
 void sift_down(int *array, size_t size, size_t root)
 {
-    size_t largest = root;
-    size_t left = 2 * root + 1;
-    size_t right = 2 * root + 2;
+    size_t largest, left, right;
+
+    largest = root;
+    left = 2 * root + 1;
+    right = 2 * root + 2;
 
     if (left < size && array[left] > array[largest])
         largest = left;
@@ -44,17 +48,17 @@ void sift_down(int *array, size_t size, size_t root)
 void heap_sort(int *array, size_t size)
 {
     size_t i;
-    int j;
+    int start;
 
     if (!array || size < 2)
         return;
 
-    /* Build max heap (no printing here) */
-    j = (int)(size / 2 - 1);
-    for (; j >= 0; j--)
-        sift_down(array, size, j);
+    /* Build max heap (silent, no printing) */
+    start = (int)(size / 2 - 1);
+    for (; start >= 0; start--)
+        sift_down(array, size, start);
 
-    /* Extract elements from heap and print after each swap */
+    /* Extract elements from heap */
     for (i = size - 1; i > 0; i--)
     {
         swap(&array[0], &array[i]);
