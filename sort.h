@@ -52,4 +52,10 @@ void selection_sort(int *array, size_t size);
  */
 void quick_sort(int *array, size_t size);
 
+/* Shell sort using Knuth sequence */
+void shell_sort(int *array, size_t size);
+
+/* Cocktail shaker sort for doubly linked lists */
+void cocktail_sort_list(listint_t **list);
+
 #endif /* SORT_H */
