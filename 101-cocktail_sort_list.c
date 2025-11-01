@@ -59,7 +59,7 @@ void cocktail_sort_list(listint_t **list)
                 current = current->next;
         }
 
-        /* Update end boundary */
+        /* Update end boundary to last sorted node */
         end = current;
 
         if (!swapped)
@@ -81,7 +81,7 @@ void cocktail_sort_list(listint_t **list)
                 current = current->prev;
         }
 
-        /* Update start boundary */
+        /* Update start boundary to first sorted node */
         start = current->next;
 
     } while (swapped);
