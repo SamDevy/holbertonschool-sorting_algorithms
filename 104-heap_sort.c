@@ -1,63 +1,67 @@
 #include "sort.h"
-#include <stdio.h>
 
 /**
- * swap - Swap two elements in an array
- * @a: first element
- * @b: second element
+ * swap - Swap two integers in an array
+ * @a: First integer pointer
+ * @b: Second integer pointer
  */
 void swap(int *a, int *b)
 {
-    int temp = *a;
+    int temp;
+
+    temp = *a;
     *a = *b;
     *b = temp;
 }
 
 /**
- * heapify - Maintains the heap property for a subtree rooted at index i
- * @array: The array to heapify
+ * sift_down - Maintains the max-heap property for a subtree
+ * @array: The array representing the heap
  * @size: Size of the heap
- * @i: Index of the root of the subtree
+ * @root: Root index of the subtree
  */
-void heapify(int *array, size_t size, size_t i)
+void sift_down(int *array, size_t size, size_t root)
 {
-    size_t largest = i;
-    size_t left = 2 * i + 1;
-    size_t right = 2 * i + 2;
+    size_t largest = root;
+    size_t left = 2 * root + 1;
+    size_t right = 2 * root + 2;
 
     if (left < size && array[left] > array[largest])
         largest = left;
-
     if (right < size && array[right] > array[largest])
         largest = right;
 
-    if (largest != i)
+    if (largest != root)
     {
-        swap(&array[i], &array[largest]);
+        swap(&array[root], &array[largest]);
         print_array(array, size);
-        heapify(array, size, largest);
+        sift_down(array, size, largest);
     }
 }
 
 /**
  * heap_sort - Sorts an array of integers in ascending order using Heap sort
  * @array: The array to sort
- * @size: Number of elements in array
+ * @size: Size of the array
  */
 void heap_sort(int *array, size_t size)
 {
+    size_t i;
+    int j;
+
     if (!array || size < 2)
         return;
 
     /* Build max heap */
-    for (int i = (int)(size / 2 - 1); i >= 0; i--)
-        heapify(array, size, i);
+    j = (int)(size / 2 - 1);
+    for (; j >= 0; j--)
+        sift_down(array, size, j);
 
-    /* Extract elements one by one */
-    for (size_t i = size - 1; i > 0; i--)
+    /* Extract elements from heap */
+    for (i = size - 1; i > 0; i--)
     {
         swap(&array[0], &array[i]);
         print_array(array, size);
-        heapify(array, i, 0);
+        sift_down(array, i, 0);
     }
 }
