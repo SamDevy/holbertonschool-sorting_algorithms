@@ -2,74 +2,72 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/**
- * get_max - find the maximum number in an array
- * @array: array of integers
- * @size: size of the array
- * Return: maximum number
- */
+/* Find max value */
 int get_max(int *array, size_t size)
 {
-    int max = array[0];
+    int max;
+    size_t i;
 
-    for (size_t i = 1; i < size; i++)
+    max = array[0];
+    for (i = 1; i < size; i++)
         if (array[i] > max)
             max = array[i];
     return max;
 }
 
-/**
- * counting_sort_for_radix - counting sort based on digit
- * @array: array to sort
- * @size: size of the array
- * @exp: current digit exponent (1, 10, 100...)
- */
+/* Counting sort for radix */
 void counting_sort_for_radix(int *array, size_t size, int exp)
 {
-    int *output = malloc(sizeof(int) * size);
+    int *output;
+    int count[10];
+    size_t i;
+    int j, digit;
+
+    output = malloc(sizeof(int) * size);
     if (!output)
         return;
 
-    int count[10] = {0};
+    for (i = 0; i < 10; i++)
+        count[i] = 0;
 
-    /* Count occurrences of digits */
-    for (size_t i = 0; i < size; i++)
-        count[(array[i] / exp) % 10]++;
+    for (i = 0; i < size; i++)
+    {
+        digit = (array[i] / exp) % 10;
+        count[digit]++;
+    }
 
-    /* Change count[i] so that count[i] now contains actual position */
-    for (int i = 1; i < 10; i++)
+    for (i = 1; i < 10; i++)
         count[i] += count[i - 1];
 
-    /* Build the output array */
-    for (ssize_t i = size - 1; i >= 0; i--)
+    for (i = size; i > 0; i--)
     {
-        int digit = (array[i] / exp) % 10;
-        output[count[digit] - 1] = array[i];
+        digit = (array[i - 1] / exp) % 10;
+        output[count[digit] - 1] = array[i - 1];
         count[digit]--;
     }
 
-    /* Copy the output array back to original array */
-    for (size_t i = 0; i < size; i++)
+    for (i = 0; i < size; i++)
         array[i] = output[i];
 
     free(output);
 }
 
-/**
- * radix_sort - LSD Radix Sort
- * @array: array to sort
- * @size: size of the array
- */
+/* Radix sort */
 void radix_sort(int *array, size_t size)
 {
+    int max;
+    int exp;
+
     if (!array || size < 2)
         return;
 
-    int max = get_max(array, size);
+    max = get_max(array, size);
+    exp = 1;
 
-    for (int exp = 1; max / exp > 0; exp *= 10)
+    while (max / exp > 0)
     {
         counting_sort_for_radix(array, size, exp);
-        print_array(array, size); /* print after each significant digit */
+        print_array(array, size);
+        exp *= 10;
     }
 }
