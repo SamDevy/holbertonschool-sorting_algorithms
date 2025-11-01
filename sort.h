@@ -15,9 +15,9 @@
  */
 typedef struct listint_s
 {
-	int n;
-	struct listint_s *prev;
-	struct listint_s *next;
+    int n;
+    struct listint_s *prev;
+    struct listint_s *next;
 } listint_t;
 
 /* Helper functions */
@@ -29,13 +29,13 @@ void bubble_sort(int *array, size_t size);
 void insertion_sort_list(listint_t **list);
 void selection_sort(int *array, size_t size);
 void quick_sort(int *array, size_t size);
-
-/* Shell sort using Knuth sequence */
 void shell_sort(int *array, size_t size);
-
-/* Cocktail shaker sort for doubly linked lists */
 void cocktail_sort_list(listint_t **list);
 
+/* Counting sort */
 void counting_sort(int *array, size_t size);
+
+/* Merge sort */
+void merge_sort(int *array, size_t size);
 
 #endif /* SORT_H */
