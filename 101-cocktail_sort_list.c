@@ -40,6 +40,7 @@ void cocktail_sort_list(listint_t **list)
 
     start = *list;
     end = NULL;
+
     do {
         swapped = 0;
         current = start;
@@ -52,11 +53,13 @@ void cocktail_sort_list(listint_t **list)
                 swap_nodes(list, current, current->next);
                 print_list(*list);
                 swapped = 1;
-                /* After swap, current stays at left node */
+                /* After swap, current is still at left node */
             }
             else
                 current = current->next;
         }
+
+        /* Update end to last sorted node */
         end = current;
 
         if (!swapped)
@@ -65,18 +68,21 @@ void cocktail_sort_list(listint_t **list)
         swapped = 0;
 
         /* Backward pass */
-        while (current->prev != start->prev)
+        while (current->prev != start->prev && current->prev)
         {
-            if (current->prev && current->n < current->prev->n)
+            if (current->n < current->prev->n)
             {
                 swap_nodes(list, current->prev, current);
                 print_list(*list);
                 swapped = 1;
-                /* After swap, current moves back to the left node */
+                /* After swap, current stays at the right node */
             }
             else
                 current = current->prev;
         }
+
+        /* Update start to first sorted node */
         start = current->next;
+
     } while (swapped);
 }
