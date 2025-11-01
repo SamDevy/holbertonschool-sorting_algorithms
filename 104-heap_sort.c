@@ -56,14 +56,19 @@ void heap_sort(int *array, size_t size)
 
     /* Build max heap */
     start = (int)(size / 2 - 1);
-    for (; start >= 0; start--)
+    while (start >= 0)
+    {
         sift_down(array, size, start);
+        start--;
+    }
 
     /* Extract elements from heap */
-    for (i = size - 1; i > 0; i--)
+    i = size - 1;
+    while (i > 0)
     {
         swap(&array[0], &array[i]);
         print_array(array, size); /* Print after swap */
         sift_down(array, i, 0);
+        i--;
     }
 }
