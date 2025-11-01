@@ -12,10 +12,14 @@
  */
 void merge(int *array, int left, int mid, int right, int *temp)
 {
-    int i = left, j = mid + 1, k = left;
+    int i, j, k, x;
+
+    i = left;
+    j = mid + 1;
+    k = left;
 
     printf("Merging...\n[left]: ");
-    for (int x = left; x <= mid; x++)
+    for (x = left; x <= mid; x++)
     {
         if (x > left)
             printf(", ");
@@ -23,7 +27,7 @@ void merge(int *array, int left, int mid, int right, int *temp)
     }
 
     printf("\n[right]: ");
-    for (int x = mid + 1; x <= right; x++)
+    for (x = mid + 1; x <= right; x++)
     {
         if (x > mid + 1)
             printf(", ");
@@ -67,10 +71,12 @@ void merge(int *array, int left, int mid, int right, int *temp)
  */
 void merge_sort_rec(int *array, int left, int right, int *temp)
 {
+    int mid;
+
     if (left >= right)
         return;
 
-    int mid = left + (right - left) / 2;
+    mid = left + (right - left) / 2;
 
     merge_sort_rec(array, left, mid, temp);
     merge_sort_rec(array, mid + 1, right, temp);
