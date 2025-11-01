@@ -8,6 +8,7 @@
 void swap_ints(int *a, int *b)
 {
 	int tmp = *a;
+
 	*a = *b;
 	*b = tmp;
 }
@@ -39,7 +40,6 @@ int lomuto_partition(int *array, int low, int high, size_t size)
 		}
 	}
 
-	/* ✅ لا نبدل ولا نطبع إذا كان العنصرين متساويين */
 	if (array[i] != array[high])
 	{
 		swap_ints(&array[i], &array[high]);
@@ -63,8 +63,10 @@ void quick_sort_recursive(int *array, int low, int high, size_t size)
 	if (low < high)
 	{
 		pivot_index = lomuto_partition(array, low, high, size);
+
 		quick_sort_recursive(array, low, pivot_index - 1, size);
-		quick_sort_recursive(array, pivot_index + 1, high, size);
+		quick_sort_recursive(array,
+				     pivot_index + 1, high, size);
 	}
 }
 
