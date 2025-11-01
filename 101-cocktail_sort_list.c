@@ -2,30 +2,29 @@
 
 /**
  * swap_nodes - swaps two adjacent nodes in a doubly linked list
- * @left: pointer to the first node
- * @right: pointer to the second node
- * @list: pointer to the head of the list
+ * @list: pointer to head of list
+ * @a: first node
+ * @b: second node
  */
-void swap_nodes(listint_t **list, listint_t *left, listint_t *right)
+void swap_nodes(listint_t **list, listint_t *a, listint_t *b)
 {
-	if (left->prev)
-		left->prev->next = right;
+	if (a->prev)
+		a->prev->next = b;
 	else
-		*list = right;
+		*list = b;
 
-	if (right->next)
-		right->next->prev = left;
+	if (b->next)
+		b->next->prev = a;
 
-	right->prev = left->prev;
-	left->next = right->next;
-	right->next = left;
-	left->prev = right;
+	b->prev = a->prev;
+	a->next = b->next;
+	b->next = a;
+	a->prev = b;
 }
 
 /**
  * cocktail_sort_list - sorts a doubly linked list in ascending order
- *                     using the Cocktail shaker sort algorithm
- * @list: pointer to the head of the list
+ * @list: pointer to head of list
  */
 void cocktail_sort_list(listint_t **list)
 {
@@ -42,8 +41,9 @@ void cocktail_sort_list(listint_t **list)
 	while (swapped)
 	{
 		swapped = 0;
-
 		current = start;
+
+		/* forward pass */
 		while (current->next != end)
 		{
 			if (current->n > current->next->n)
@@ -51,6 +51,7 @@ void cocktail_sort_list(listint_t **list)
 				swap_nodes(list, current, current->next);
 				print_list(*list);
 				swapped = 1;
+				/* after swap, current stays at first of the two swapped nodes */
 			}
 			else
 				current = current->next;
@@ -62,6 +63,8 @@ void cocktail_sort_list(listint_t **list)
 
 		swapped = 0;
 		current = end;
+
+		/* backward pass */
 		while (current->prev != start->prev)
 		{
 			if (current->n < current->prev->n)
