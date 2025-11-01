@@ -36,6 +36,7 @@ void sift_down(int *array, size_t size, size_t root)
     if (largest != root)
     {
         swap(&array[root], &array[largest]);
+        print_array(array, size); /* Print after every swap */
         sift_down(array, size, largest);
     }
 }
@@ -47,13 +48,13 @@ void sift_down(int *array, size_t size, size_t root)
  */
 void heap_sort(int *array, size_t size)
 {
-    size_t i;
     int start;
+    size_t i;
 
     if (!array || size < 2)
         return;
 
-    /* Build max heap (silent, no printing) */
+    /* Build max heap */
     start = (int)(size / 2 - 1);
     for (; start >= 0; start--)
         sift_down(array, size, start);
@@ -62,7 +63,7 @@ void heap_sort(int *array, size_t size)
     for (i = size - 1; i > 0; i--)
     {
         swap(&array[0], &array[i]);
-        print_array(array, size);
+        print_array(array, size); /* Print after swap */
         sift_down(array, i, 0);
     }
 }
