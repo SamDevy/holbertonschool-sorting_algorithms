@@ -1,37 +1,21 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "sort.h"
 
 /**
- * shell_sort - sorts an array of integers in ascending order
- *              using the Shell sort algorithm (Knuth sequence)
- * @array: pointer to the array of integers
- * @size: number of elements in the array
+ * main - Entry point
+ *
+ * Return: Always 0
  */
-void shell_sort(int *array, size_t size)
+int main(void)
 {
-	size_t gap, i, j;
-	int temp;
+    int array[] = {19, 48, 99, 71, 13, 52, 96, 73, 86, 7};
+    size_t n = sizeof(array) / sizeof(array[0]);
 
-	if (!array || size < 2)
-		return;
-
-	/* Compute initial Knuth sequence gap */
-	for (gap = 1; gap < size / 3; gap = gap * 3 + 1)
-		;
-
-	while (gap > 0)
-	{
-		for (i = gap; i < size; i++)
-		{
-			temp = array[i];
-			j = i;
-			while (j >= gap && array[j - gap] > temp)
-			{
-				array[j] = array[j - gap];
-				j -= gap;
-			}
-			array[j] = temp;
-		}
-		print_array(array, size);
-		gap /= 3;
-	}
+    print_array(array, n);
+    printf("\n");
+    shell_sort(array, n);
+    printf("\n");
+    print_array(array, n);
+    return (0);
 }
