@@ -74,8 +74,8 @@ void quick_sort_recursive(int *array, int low, int high, size_t size)
  * @array: The array to be sorted
  * @size: The number of elements in the array
  *
- * Description: Uses the Lomuto partition scheme. Prints the array
- *              after each swap of two distinct elements.
+ * Description: Uses the Lomuto partition scheme.
+ * Prints the array after each swap of two distinct elements.
  */
 void quick_sort(int *array, size_t size)
 {
