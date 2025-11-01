@@ -2,42 +2,39 @@
 
 /**
  * swap - Swap two integers in an array
- * @a: First integer pointer
- * @b: Second integer pointer
+ * @a: first integer
+ * @b: second integer
  */
 void swap(int *a, int *b)
 {
-    int temp;
-
-    temp = *a;
+    int temp = *a;
     *a = *b;
     *b = temp;
 }
 
 /**
- * sift_down - Maintains the max-heap property for a subtree
- * @array: The array representing the heap
+ * heapify - Maintains the max-heap property for a subtree rooted at index i
+ * @array: The array to heapify
  * @size: Size of the heap
- * @root: Root index of the subtree
+ * @i: Root index
+ * @n: Total size of the array (for printing)
  */
-void sift_down(int *array, size_t size, size_t root)
+void heapify(int *array, size_t size, size_t i, size_t n)
 {
-    size_t largest, left, right;
-
-    largest = root;
-    left = 2 * root + 1;
-    right = 2 * root + 2;
+    size_t largest = i;
+    size_t left = 2 * i + 1;
+    size_t right = 2 * i + 2;
 
     if (left < size && array[left] > array[largest])
         largest = left;
     if (right < size && array[right] > array[largest])
         largest = right;
 
-    if (largest != root)
+    if (largest != i)
     {
-        swap(&array[root], &array[largest]);
-        print_array(array, size); /* Print after every swap */
-        sift_down(array, size, largest);
+        swap(&array[i], &array[largest]);
+        print_array(array, n);
+        heapify(array, size, largest, n);
     }
 }
 
@@ -48,27 +45,20 @@ void sift_down(int *array, size_t size, size_t root)
  */
 void heap_sort(int *array, size_t size)
 {
-    int start;
-    size_t i;
-
     if (!array || size < 2)
         return;
 
+    size_t i;
+
     /* Build max heap */
-    start = (int)(size / 2 - 1);
-    while (start >= 0)
-    {
-        sift_down(array, size, start);
-        start--;
-    }
+    for (i = size / 2; i > 0; i--)
+        heapify(array, size, i - 1, size);
 
     /* Extract elements from heap */
-    i = size - 1;
-    while (i > 0)
+    for (i = size; i > 1; i--)
     {
-        swap(&array[0], &array[i]);
-        print_array(array, size); /* Print after swap */
-        sift_down(array, i, 0);
-        i--;
+        swap(&array[0], &array[i - 1]);
+        print_array(array, size);
+        heapify(array, i - 1, 0, size);
     }
 }
