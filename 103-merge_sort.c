@@ -16,22 +16,26 @@ void merge(int *array, int left, int mid, int right, int *temp)
     j = mid + 1;
     k = left;
 
-    printf("Merging...\n[left]: ");
-    for (x = left; x <= mid; x++)
+    /* Only print merges of arrays with more than one element */
+    if (right - left >= 1)
     {
-        if (x > left)
-            printf(", ");
-        printf("%d", array[x]);
-    }
+        printf("Merging...\n[left]: ");
+        for (x = left; x <= mid; x++)
+        {
+            if (x > left)
+                printf(", ");
+            printf("%d", array[x]);
+        }
 
-    printf("\n[right]: ");
-    for (x = mid + 1; x <= right; x++)
-    {
-        if (x > mid + 1)
-            printf(", ");
-        printf("%d", array[x]);
+        printf("\n[right]: ");
+        for (x = mid + 1; x <= right; x++)
+        {
+            if (x > mid + 1)
+                printf(", ");
+            printf("%d", array[x]);
+        }
+        printf("\n");
     }
-    printf("\n");
 
     while (i <= mid && j <= right)
     {
@@ -50,14 +54,17 @@ void merge(int *array, int left, int mid, int right, int *temp)
     for (i = left; i <= right; i++)
         array[i] = temp[i];
 
-    printf("[Done]: ");
-    for (i = left; i <= right; i++)
+    if (right - left >= 1)
     {
-        if (i > left)
-            printf(", ");
-        printf("%d", array[i]);
+        printf("[Done]: ");
+        for (i = left; i <= right; i++)
+        {
+            if (i > left)
+                printf(", ");
+            printf("%d", array[i]);
+        }
+        printf("\n");
     }
-    printf("\n");
 }
 
 /**
@@ -76,9 +83,11 @@ void merge_sort_rec(int *array, int left, int right, int *temp)
 
     mid = left + (right - left) / 2;
 
-    merge_sort_rec(array, left, mid, temp);       /* sort left */
-    merge_sort_rec(array, mid + 1, right, temp);  /* sort right */
-    merge(array, left, mid, right, temp);        /* merge left and right */
+    merge_sort_rec(array, left, mid, temp);
+    merge_sort_rec(array, mid + 1, right, temp);
+
+    if (right - left >= 1)
+        merge(array, left, mid, right, temp);
 }
 
 /**
