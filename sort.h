@@ -38,4 +38,7 @@ void counting_sort(int *array, size_t size);
 /* Merge sort */
 void merge_sort(int *array, size_t size);
 
+/* Radix sort */
+void radix_sort(int *array, size_t size);
+
 #endif /* SORT_H */
