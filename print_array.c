@@ -1,22 +1,23 @@
 #include "sort.h"
 
 /**
- * print_array - Prints an array of integers
- * @array: The array
- * @size: Number of elements
+ * print_list - Prints a doubly linked list of integers
+ * @list: The list to print
+ *
+ * Return: The number of nodes printed
  */
-void print_array(const int *array, size_t size)
+size_t print_list(const listint_t *list)
 {
-    size_t i;
+    size_t i = 0;
 
-    if (!array)
-        return;
-
-    for (i = 0; i < size; i++)
+    while (list)
     {
-        if (i > 0)
+        printf("%d", list->n);
+        list = list->next;
+        i++;
+        if (list)
             printf(", ");
-        printf("%d", array[i]);
     }
     printf("\n");
+    return (i);
 }
