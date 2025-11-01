@@ -39,7 +39,8 @@ int lomuto_partition(int *array, int low, int high, size_t size)
 		}
 	}
 
-	if (i != high)
+	/* ✅ لا نبدل ولا نطبع إذا كان العنصرين متساويين */
+	if (array[i] != array[high])
 	{
 		swap_ints(&array[i], &array[high]);
 		print_array(array, size);
@@ -74,7 +75,7 @@ void quick_sort_recursive(int *array, int low, int high, size_t size)
  * @size: The number of elements in the array
  *
  * Description: Uses the Lomuto partition scheme. Prints the array
- *              after each swap of two elements.
+ *              after each swap of two distinct elements.
  */
 void quick_sort(int *array, size_t size)
 {
